@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TokyoMC Mod Files</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: #202020;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #2a2a2a;
+      border-bottom: 1px solid #333;
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .item-count {
+      color: #888;
+      margin-left: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #444;
+    }
+
+    .btn-primary {
+      background-color: #0066cc;
+      border-color: #0066cc;
+    }
+
+    .btn-primary:hover {
+      background-color: #0052a3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 20px;
+      font-weight: 500;
+      color: #888;
+      border-bottom: 1px solid #333;
+    }
+
+    td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    tr:hover {
+      background-color: #2a2a2a;
+    }
+
+    .file-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .file-name {
+      display: flex;
+      align-items: center;
+    }
+
+    .file-size {
+      color: #888;
+    }
+
+    .modified-date {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <span class="title">Tokyomc.zip</span>
+        <span class="item-count"><%= files.length %> items</span>
+      </div>
+      <div class="actions">
+        <a href="/download-all" class="btn btn-primary">Download all</a>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Last modified</th>
+          <th>File size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% files.forEach(file => { %>
+          <tr>
+            <td class="file-name">
+              <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                <polyline points="13 2 13 9 20 9"></polyline>
+              </svg>
+              <%= file.name %>
+            </td>
+            <td class="modified-date"><%= file.modified || 'Jan 5, 2025' %></td>
+            <td class="file-size"><%= file.size %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
