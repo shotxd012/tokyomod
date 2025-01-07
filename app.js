@@ -4,14 +4,10 @@ const fs = require('fs');
 const AdmZip = require('adm-zip');
 
 const app = express();
-
-// Set EJS as the template engine
 app.set('view engine', 'ejs');
 
-// Serve static files
 app.use(express.static('public'));
 
-// Route to display files
 app.get('/', (req, res) => {
   const dirPath = path.join(__dirname, 'public', 'mod');
   const files = fs.readdirSync(dirPath).map(file => ({
@@ -21,7 +17,6 @@ app.get('/', (req, res) => {
   res.render('index', { files });
 });
 
-// Route to download all files as ZIP
 app.get('/download-all', (req, res) => {
   const zip = new AdmZip();
   const dirPath = path.join(__dirname, 'public', 'mod');
@@ -41,7 +36,6 @@ app.get('/download-all', (req, res) => {
   });
 });
 
-// Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://mods.tokyomc.fun`);
