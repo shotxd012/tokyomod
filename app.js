@@ -36,6 +36,23 @@ app.get('/download-all', (req, res) => {
   });
 });
 
+app.get('/download/:fileName', (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = path.join(__dirname, 'public', 'mod', fileName);
+
+  if (fs.existsSync(filePath)) {
+    res.download(filePath, fileName, err => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error downloading the file.');
+      }
+    });
+  } else {
+    res.status(404).send('File not found.');
+  }
+});
+
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://mods.tokyomc.fun`);
