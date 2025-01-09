@@ -77,41 +77,44 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const downloadAllBtn = document.getElementById('downloadAllBtn');
-      const downloadBtns = document.querySelectorAll('.download-btn');
-      const loadingOverlay = document.getElementById('loadingOverlay');
+document.addEventListener('DOMContentLoaded', () => {
+  const downloadAllBtn = document.getElementById('downloadAllBtn');
+  const downloadBtns = document.querySelectorAll('.download-btn');
+  const loadingOverlay = document.getElementById('loadingOverlay');
 
-      function showLoading() {
-        loadingOverlay.classList.remove('opacity-0', 'invisible');
-      }
+  function showLoading() {
+    loadingOverlay.classList.remove('opacity-0', 'invisible');
+  }
 
-      function hideLoading() {
-        loadingOverlay.classList.add('opacity-0', 'invisible');
-      }
+  function hideLoading() {
+    loadingOverlay.classList.add('opacity-0', 'invisible');
+  }
 
-      function simulateDownload(btn) {
-        btn.disabled = true;
-        btn.classList.add('opacity-70', 'cursor-not-allowed');
-        showLoading();
+  function simulateDownload(btn) {
+    btn.disabled = true;
+    btn.classList.add('opacity-70', 'cursor-not-allowed');
+    showLoading();
 
-        setTimeout(() => {
-          btn.disabled = false;
-          btn.classList.remove('opacity-70', 'cursor-not-allowed');
-          hideLoading();
-        }, 2000);
-      }
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.classList.remove('opacity-70', 'cursor-not-allowed');
+      hideLoading();
+    }, 2000);
+  }
 
-      downloadAllBtn.addEventListener('click', () => {
-        simulateDownload(downloadAllBtn);
-      });
+  downloadAllBtn.addEventListener('click', () => {
+    simulateDownload(downloadAllBtn);
+    window.location.href = '/download-all';
+  });
 
-      downloadBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          simulateDownload(btn);
-        });
-      });
+  downloadBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const fileName = btn.getAttribute('data-file');
+      simulateDownload(btn);
+      window.location.href = `/download/${fileName}`;
     });
+  });
+});
   </script>
 </body>
 </html>
