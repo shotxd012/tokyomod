@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+<body class="bg-gray-900 text-white min-h-screen font-sans flex flex-col">
+    <%- include('partials/nav') %>
+
+    <main class="flex-grow">
+        <section class="hero-gradient min-h-screen py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-7xl mx-auto bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 bg-gray-700/50 border-b border-gray-600">
+                        <div>
+                            <h1 class="text-2xl font-semibold"><%= title %></h1>
+                            <span class="text-sm text-gray-400"><%= files.length %> items</span>
+                        </div>
+                        <div class="mt-4 sm:mt-0 w-full sm:w-auto flex space-x-4">
+                            <a href="/mods" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white font-medium transition duration-200 ease-in-out">
+                                All Mods
+                            </a>
+                            <a href="/mods/new" class="px-5 py-2 bg-green-600 hover:bg-green-700 rounded-md text-white font-medium transition duration-200 ease-in-out">
+                                New Upload Mods
+                            </a>
+                            <a href="/download-all/<%= type %>" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white font-medium transition duration-200 ease-in-out">
+                                Download All Files
+                            </a>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-700/50">
+                                    <th class="text-left p-4 font-medium text-gray-300">Name</th>
+                                    <th class="text-left p-4 font-medium text-gray-300">Size</th>
+                                    <th class="text-left p-4 font-medium text-gray-300">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% files.forEach(file => { %>
+                                    <tr class="hover:bg-gray-700/30 transition duration-150 ease-in-out">
+                                        <td class="p-4"><%= file.name %></td>
+                                        <td class="p-4 text-gray-400"><%= file.size %></td>
+                                        <td class="p-4">
+                                            <a href="/download/<%= type %>/<%= file.name %>" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white font-medium transition duration-200 ease-in-out">
+                                                Download
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body class="bg-gray-900 text-white min-h-screen font-sans">
+    <%- include('partials/nav') %>
+
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center pt-16">
+        <div class="container mx-auto px-4 py-32 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-orange-500">
+                Welcome to Tokyo Modded
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300">
+                Experience enhanced Minecraft gameplay with our curated mod packs
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button id="play-now" class="bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-lg text-lg font-medium transition-colors transform hover:scale-105">
+                    Play Now
+                </button>
+                <a href="https://discord.gg/tokyomc" target="_blank" class="bg-gray-800 hover:bg-gray-700 px-8 py-3 rounded-lg text-lg font-medium transition-colors transform hover:scale-105">
+                    Join Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="modespacks" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Our Modes Packs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="game-mode-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-red-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Create Mod</h3>
+                    <p class="text-gray-400">Unleash your creativity with advanced contraptions and engineering marvels!</p>
+                </div>
+                <div class="game-mode-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8h12M6 12h12m-6 4h6" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Drawer</h3>
+                    <p class="text-gray-400">Organize your resources efficiently with functional storage solutions!</p>
+                </div>
+                <div class="game-mode-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Easy Villager</h3>
+                    <p class="text-gray-400">Simplify villager management with intuitive and convenient tools!</p>
+                </div>
+                <div class="game-mode-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-purple-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l4 7H8l4-7zm0 11a4 4 0 110 8 4 4 0 010-8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">More</h3>
+                    <p class="text-gray-400">Discover additional features and enhancements to elevate your gameplay!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12">Server Status</h2>
+            <div class="inline-flex items-center space-x-2 bg-gray-900 px-6 py-3 rounded-lg">
+                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                <span class="text-lg">Online - Join now at modded.tokyomc.fun</span>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        document.getElementById('play-now').addEventListener('click', function() {
+            const serverIP = 'modded.tokyomc.fun';
+
+            navigator.clipboard.writeText(serverIP).then(() => {
+                alert('Server IP copied to clipboard: ' + serverIP);
+            }).catch(err => {
+                console.error('Failed to copy server IP: ', err);
+                alert('Failed to copy server IP. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
