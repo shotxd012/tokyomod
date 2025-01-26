@@ -31,7 +31,7 @@ app.get('/mods', (req, res) => {
 });
 
 app.get('/mods/new', (req, res) => {
-  const dirPath = path.join(__dirname, 'public', 'mod', 'new');
+  const dirPath = path.join(__dirname, 'public', 'newmods');
   const files = getFiles(dirPath);
   res.render('download', { files, type: 'new-mods', title: 'New Upload Mods' });
 });
