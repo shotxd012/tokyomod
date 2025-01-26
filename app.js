@@ -39,7 +39,7 @@ app.get('/mods/new', (req, res) => {
 app.get('/download-all/:type', (req, res) => {
   const { type } = req.params;
   const dirPath = type === 'new-mods'
-    ? path.join(__dirname, 'public', 'mod', 'new')
+    ? path.join(__dirname, 'public', 'newmods')
     : path.join(__dirname, 'public', 'mod');
 
   const zip = new AdmZip();
@@ -61,7 +61,7 @@ app.get('/download-all/:type', (req, res) => {
 app.get('/download/:type/:fileName', (req, res) => {
   const { type, fileName } = req.params;
   const dirPath = type === 'new-mods'
-    ? path.join(__dirname, 'public', 'mod', 'new')
+    ? path.join(__dirname, 'public', 'newmods')
     : path.join(__dirname, 'public', 'mod');
 
   const filePath = path.join(dirPath, fileName);
