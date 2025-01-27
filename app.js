@@ -16,7 +16,7 @@ const getFiles = (dirPath) => {
 };
 
 app.get('/', (req, res) => {
-  const dirPath = path.join(__dirname, 'public', 'mod', 'new');
+  const dirPath = path.join(__dirname, 'public', 'newmods');
   const files = fs.readdirSync(dirPath).map(file => ({
     name: file,
     size: (fs.statSync(path.join(dirPath, file)).size / 1024).toFixed(2) + ' KB',
