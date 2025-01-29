@@ -3,13 +3,35 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-8">
                 <a href="/" class="text-2xl font-bold text-purple-500">Tokyo Modded MC</a>
+                <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex space-x-6">
                     <a href="/" class="nav-link py-2">Home</a>
                     <a href="/mods" class="nav-link py-2">Mod Packs</a>
                     <a href="/store" class="nav-link py-2">Store</a>
-                    <a href="https://discord.gg/tokyomc" class="nav-link py-2">Discord</a>
+                    <a href="https://discord.gg/zZtMR4PWwE" class="nav-link py-2">Discord</a>
                 </div>
             </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-purple-500 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Navigation Links -->
+        <div id="mobile-menu" class="md:hidden hidden mt-4 space-y-2">
+            <a href="/" class="block nav-link py-2">Home</a>
+            <a href="/mods" class="block nav-link py-2">Mod Packs</a>
+            <a href="/store" class="block nav-link py-2">Store</a>
+            <a href="https://discord.gg/tokyomc" class="block nav-link py-2">Discord</a>
         </div>
     </div>
 </nav>
+
+<script>
+    // Toggle mobile menu
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
