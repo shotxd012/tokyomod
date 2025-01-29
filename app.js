@@ -83,6 +83,10 @@ app.get('/store', (req, res) => {
   res.render('store');
 });
 
+app.get('/guides', (req, res) => {
+  res.render('guides');
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
