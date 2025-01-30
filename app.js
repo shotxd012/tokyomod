@@ -15,13 +15,17 @@ const getFiles = (dirPath) => {
   }));
 };
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
   const dirPath = path.join(__dirname, 'public', 'newmods');
   const files = fs.readdirSync(dirPath).map(file => ({
     name: file,
     size: (fs.statSync(path.join(dirPath, file)).size / 1024).toFixed(2) + ' KB',
   }));
-  res.render('index', { files });
+  res.render('home', { files });
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/index');
 });
 
 app.get('/mods', (req, res) => {
