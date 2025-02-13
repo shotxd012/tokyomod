@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .data-section {
+            margin-bottom: 20px;
+        }
+        .data-section h2 {
+            color: #555;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        .data-item span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Overview</h1>
+
+        <!-- Insights Section -->
+        <div class="data-section">
+            <h2>Insights</h2>
+            <div class="data-item">
+                <span>Low TPS CPU:</span>
+                <span><%= data.insights.low_tps_cpu %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS TPS:</span>
+                <span><%= data.insights.low_tps_tps %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Players:</span>
+                <span><%= data.insights.low_tps_players %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Chunks:</span>
+                <span><%= data.insights.low_tps_chunks %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Entities:</span>
+                <span><%= data.insights.low_tps_entities %></span>
+            </div>
+        </div>
+
+        <!-- Numbers Section -->
+        <div class="data-section">
+            <h2>Numbers</h2>
+            <div class="data-item">
+                <span>Players (7d):</span>
+                <span><%= data.numbers.players_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Min Disk (24h):</span>
+                <span><%= data.numbers.min_disk_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>TPS (7d):</span>
+                <span><%= data.numbers.tps_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Min Disk (30d):</span>
+                <span><%= data.numbers.min_disk_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>CPU (24h):</span>
+                <span><%= data.numbers.cpu_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Max Disk (30d):</span>
+                <span><%= data.numbers.max_disk_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>CPU (30d):</span>
+                <span><%= data.numbers.cpu_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>CPU (7d):</span>
+                <span><%= data.numbers.cpu_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Min Disk (7d):</span>
+                <span><%= data.numbers.min_disk_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>RAM (7d):</span>
+                <span><%= data.numbers.ram_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Players (24h):</span>
+                <span><%= data.numbers.players_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Players (30d):</span>
+                <span><%= data.numbers.players_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Entities (7d):</span>
+                <span><%= data.numbers.entities_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Spikes (30d):</span>
+                <span><%= data.numbers.low_tps_spikes_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Server Downtime (24h):</span>
+                <span><%= data.numbers.server_downtime_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Server Downtime (30d):</span>
+                <span><%= data.numbers.server_downtime_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>TPS (24h):</span>
+                <span><%= data.numbers.tps_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Entities (24h):</span>
+                <span><%= data.numbers.entities_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Chunks (24h):</span>
+                <span><%= data.numbers.chunks_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>TPS (30d):</span>
+                <span><%= data.numbers.tps_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Entities (30d):</span>
+                <span><%= data.numbers.entities_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Spikes (24h):</span>
+                <span><%= data.numbers.low_tps_spikes_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Max Disk (7d):</span>
+                <span><%= data.numbers.max_disk_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Chunks (30d):</span>
+                <span><%= data.numbers.chunks_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Max Disk (24h):</span>
+                <span><%= data.numbers.max_disk_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>Low TPS Spikes (7d):</span>
+                <span><%= data.numbers.low_tps_spikes_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>Server Downtime (7d):</span>
+                <span><%= data.numbers.server_downtime_7d %></span>
+            </div>
+            <div class="data-item">
+                <span>RAM (24h):</span>
+                <span><%= data.numbers.ram_24h %></span>
+            </div>
+            <div class="data-item">
+                <span>RAM (30d):</span>
+                <span><%= data.numbers.ram_30d %></span>
+            </div>
+            <div class="data-item">
+                <span>Chunks (7d):</span>
+                <span><%= data.numbers.chunks_7d %></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
