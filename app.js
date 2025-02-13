@@ -115,6 +115,19 @@ app.get('/admin/performance/overview', async (req, res) => {
     }
 });
 
+// Graph Route
+app.get('/admin/performance/graph', async (req, res) => {
+    try {
+        const response = await axios.get('http://modded.tokyomc.fun:23999/v1/graph?type=optimizedPerformance&server=tokyo%20modded');
+        const graphData = response.data;
+        console.log('Graph Data:', graphData);
+        res.render('admin/performance/graph', { graphData });
+    } catch (error) {
+        console.error('Error fetching graph data:', error);
+        res.status(500).send('Error fetching graph data');
+    }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
