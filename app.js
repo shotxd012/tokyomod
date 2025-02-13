@@ -108,7 +108,7 @@ app.get('/admin/performance/overview', async (req, res) => {
         const response = await axios.get('http://modded.tokyomc.fun:23999/v1/performanceOverview?server=tokyo%20modded');
         const data = response.data;
         console.log('Performance Data:', data);
-        res.render('admin/performance/overview', { data });
+        res.render('overview', { data });
     } catch (error) {
         console.error('Error fetching performance data:', error);
         res.status(500).send('Error fetching performance data');
