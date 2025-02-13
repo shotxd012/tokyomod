@@ -121,7 +121,7 @@ app.get('/admin/performance/graph', async (req, res) => {
         const response = await axios.get('http://modded.tokyomc.fun:23999/v1/graph?type=optimizedPerformance&server=tokyo%20modded');
         const graphData = response.data;
         console.log('Graph Data:', graphData);
-        res.render('admin/performance/graph', { graphData });
+        res.render('graph', { graphData });
     } catch (error) {
         console.error('Error fetching graph data:', error);
         res.status(500).send('Error fetching graph data');
