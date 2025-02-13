@@ -39,9 +39,15 @@
         // Parse the graph data passed from the server
         const graphData = <%- JSON.stringify(graphData) %>;
 
-        // Extract labels and data for the chart
-        const labels = graphData.labels; // Assuming the API returns labels for the x-axis
-        const data = graphData.data;    // Assuming the API returns data for the y-axis
+        // Extract labels (formatted time) and data for the chart
+        const labels = graphData.values.map(entry => entry[0]); // Formatted time
+        const playersOnline = graphData.values.map(entry => entry[1]);
+        const tps = graphData.values.map(entry => entry[2]);
+        const cpu = graphData.values.map(entry => entry[3]);
+        const ram = graphData.values.map(entry => entry[4]);
+        const entities = graphData.values.map(entry => entry[5]);
+        const chunks = graphData.values.map(entry => entry[6]);
+        const disk = graphData.values.map(entry => entry[7]);
 
         // Create the chart
         const ctx = document.getElementById('performanceChart').getContext('2d');
@@ -49,14 +55,64 @@
             type: 'line', // Use a line chart
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'Performance',
-                    data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
-                    fill: true,
-                }]
+                datasets: [
+                    {
+                        label: 'Players Online',
+                        data: playersOnline,
+                        borderColor: graphData.colors.playersOnline,
+                        backgroundColor: graphData.colors.playersOnline + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'TPS',
+                        data: tps,
+                        borderColor: graphData.colors.high,
+                        backgroundColor: graphData.colors.high + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'CPU',
+                        data: cpu,
+                        borderColor: graphData.colors.cpu,
+                        backgroundColor: graphData.colors.cpu + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'RAM',
+                        data: ram,
+                        borderColor: graphData.colors.ram,
+                        backgroundColor: graphData.colors.ram + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'Entities',
+                        data: entities,
+                        borderColor: graphData.colors.entities,
+                        backgroundColor: graphData.colors.entities + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'Chunks',
+                        data: chunks,
+                        borderColor: graphData.colors.chunks,
+                        backgroundColor: graphData.colors.chunks + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    },
+                    {
+                        label: 'Disk',
+                        data: disk,
+                        borderColor: graphData.colors.low,
+                        backgroundColor: graphData.colors.low + '20',
+                        borderWidth: 2,
+                        fill: true,
+                    }
+                ]
             },
             options: {
                 responsive: true,
