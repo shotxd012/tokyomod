@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const path = require('path');
 const fs = require('fs');
 const AdmZip = require('adm-zip');
@@ -90,6 +91,28 @@ app.get('/guides', (req, res) => {
 
 app.get('/rules', (req, res) => {
   res.render('rules');
+});
+
+
+// api admin only page
+
+// Middleware to log requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
+// Admin Performance Overview Route
+app.get('/admin/performance/overview', async (req, res) => {
+    try {
+        const response = await axios.get('http://modded.tokyomc.fun:23999/v1/performanceOverview?server=tokyo%20modded');
+        const data = response.data;
+        console.log('Performance Data:', data);
+        res.render('admin/performance/overview', { data });
+    } catch (error) {
+        console.error('Error fetching performance data:', error);
+        res.status(500).send('Error fetching performance data');
+    }
 });
 
 const PORT = 3000;
