@@ -120,6 +120,12 @@ app.get('/admin/performance/graph', async (req, res) => {
     try {
         const response = await axios.get('http://modded.tokyomc.fun:23999/v1/graph?type=optimizedPerformance&server=tokyo%20modded');
         const graphData = response.data;
+        graphData.values = graphData.values.map(entry => {
+            const date = new Date(entry[0]); 
+            const formattedTime = date.toLocaleTimeString(); 
+            return [formattedTime, ...entry.slice(1)];
+        });
+
         console.log('Graph Data:', graphData);
         res.render('graph', { graphData });
     } catch (error) {
