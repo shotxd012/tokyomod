@@ -5,128 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance Graph</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
         }
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
         }
         canvas {
             max-width: 100%;
-            margin: 0 auto;
+            height: auto !important;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-<canvas id="performanceChart" width="1200" height="600"></canvas>
-<script>
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    const performanceChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Players Online',
-                    data: playersOnline,
-                    borderColor: graphData.colors.playersOnline,
-                    backgroundColor: graphData.colors.playersOnline + '20',
+    <div class="container">
+        <h1>Performance Graph</h1>
+        <canvas id="performanceChart"></canvas>
+    </div>
+
+    <script>
+        // Parse the graph data passed from the server
+        const graphData = <%- JSON.stringify(graphData) %>;
+
+        // Extract labels (formatted time) and data for the chart
+        const labels = graphData.values.map(entry => entry[0]); // Formatted time
+        const datasets = [
+            { label: 'Players Online', data: graphData.values.map(entry => entry[1]), color: graphData.colors.playersOnline },
+            { label: 'TPS', data: graphData.values.map(entry => entry[2]), color: graphData.colors.high },
+            { label: 'CPU', data: graphData.values.map(entry => entry[3]), color: graphData.colors.cpu },
+            { label: 'RAM', data: graphData.values.map(entry => entry[4]), color: graphData.colors.ram },
+            { label: 'Entities', data: graphData.values.map(entry => entry[5]), color: graphData.colors.entities },
+            { label: 'Chunks', data: graphData.values.map(entry => entry[6]), color: graphData.colors.chunks },
+            { label: 'Disk', data: graphData.values.map(entry => entry[7]), color: graphData.colors.low }
+        ];
+
+        // Create the chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets.map(dataset => ({
+                    label: dataset.label,
+                    data: dataset.data,
+                    borderColor: dataset.color,
+                    backgroundColor: dataset.color + '20',
                     borderWidth: 2,
                     fill: true,
-                },
-                {
-                    label: 'TPS',
-                    data: tps,
-                    borderColor: graphData.colors.high,
-                    backgroundColor: graphData.colors.high + '20',
-                    borderWidth: 2,
-                    fill: true,
-                },
-                {
-                    label: 'CPU',
-                    data: cpu,
-                    borderColor: graphData.colors.cpu,
-                    backgroundColor: graphData.colors.cpu + '20',
-                    borderWidth: 2,
-                    fill: true,
-                },
-                {
-                    label: 'RAM',
-                    data: ram,
-                    borderColor: graphData.colors.ram,
-                    backgroundColor: graphData.colors.ram + '20',
-                    borderWidth: 2,
-                    fill: true,
-                },
-                {
-                    label: 'Entities',
-                    data: entities,
-                    borderColor: graphData.colors.entities,
-                    backgroundColor: graphData.colors.entities + '20',
-                    borderWidth: 2,
-                    fill: true,
-                },
-                {
-                    label: 'Chunks',
-                    data: chunks,
-                    borderColor: graphData.colors.chunks,
-                    backgroundColor: graphData.colors.chunks + '20',
-                    borderWidth: 2,
-                    fill: true,
-                },
-                {
-                    label: 'Disk',
-                    data: disk,
-                    borderColor: graphData.colors.low,
-                    backgroundColor: graphData.colors.low + '20',
-                    borderWidth: 2,
-                    fill: true,
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,  // Ensure it uses full width & height
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Optimized Performance Over Time'
-                }
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointHoverRadius: 5,
+                }))
             },
-            scales: {
-                x: {
-                    display: true,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 12,
+                                family: "'Inter', sans-serif"
+                            },
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Time'
+                        text: 'Server Performance Over Time',
+                        font: {
+                            size: 20,
+                            family: "'Inter', sans-serif",
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 30
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        titleFont: {
+                            size: 14,
+                            family: "'Inter', sans-serif"
+                        },
+                        bodyFont: {
+                            size: 12,
+                            family: "'Inter', sans-serif"
+                        }
                     }
                 },
-                y: {
-                    display: true,
-                    title: {
+                scales: {
+                    x: {
                         display: true,
-                        text: 'Performance Value'
+                        title: {
+                            display: true,
+                            text: 'Time',
+                            font: {
+                                size: 14,
+                                family: "'Inter', sans-serif",
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Performance Value',
+                            font: {
+                                size: 14,
+                                family: "'Inter', sans-serif",
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
                     }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
+
