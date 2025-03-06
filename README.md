@@ -50,8 +50,8 @@ Follow these steps to run the project locally:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/tokyo-modded-website.git
-   cd tokyo-modded-website
+   git clone git@github.com:shotxd012/tokyomod.git
+   cd tokyomod
    ```
 
 2. **Install Dependencies**
