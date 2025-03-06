@@ -40,9 +40,18 @@
                                         <td class="p-4"><%= file.name %></td>
                                         <td class="p-4 text-gray-400"><%= file.size %></td>
                                         <td class="p-4">
-                                            <a href="/download/<%= type %>/<%= file.name %>" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white font-medium transition duration-200 ease-in-out">
-                                                Download
-                                            </a>
+                                            <button 
+                                                onclick="startDownload(this, '<%= type %>', '<%= file.name %>')" 
+                                                class="download-btn px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md text-white font-medium transition duration-200 ease-in-out flex items-center justify-center min-w-[120px]"
+                                            >
+                                                <span class="btn-text">Download</span>
+                                                <span class="spinner hidden ml-2">
+                                                    <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg>
+                                                </span>
+                                            </button>
                                         </td>
                                     </tr>
                                 <% }) %>
@@ -55,5 +64,57 @@
     </main>
 
     <%- include('partials/footer') %>
+
+    <style>
+        /* Download button animation styles */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        
+        .download-btn.loading {
+            background-color: #5b21b6; /* Darker purple when loading */
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            cursor: not-allowed;
+        }
+    </style>
+
+    <script>
+        function startDownload(button, type, fileName) {
+            // Prevent multiple clicks
+            if (button.classList.contains('loading')) {
+                return;
+            }
+            
+            // Update button state
+            button.classList.add('loading');
+            button.querySelector('.btn-text').textContent = 'Downloading...';
+            button.querySelector('.spinner').classList.remove('hidden');
+            
+            // Create a hidden link and trigger the download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = `/download/${type}/${fileName}`;
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+            
+            // Start download
+            downloadLink.click();
+            
+            // Remove the link element
+            document.body.removeChild(downloadLink);
+            
+            // Reset button after a delay (you might want to adjust this timing)
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.querySelector('.btn-text').textContent = 'Download';
+                button.querySelector('.spinner').classList.add('hidden');
+            }, 3000); // Reset after 3 seconds - adjust as needed
+        }
+    </script>
 </body>
 </html>
+
